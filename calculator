@@ -1,0 +1,37 @@
+#include <iostream>
+int main() {
+    char op;
+    double num1;
+    double num2;
+    double ans;
+    std::cout<<"enter number 1"<<'\n';
+    std::cin>>num1;
+    std::cout<<"enter number 2"<<'\n';
+    std::cin>>num2;
+    std::cout<<"choose your symbol"<<'\n';
+    std::cin>>op;
+    if(op=='+'){
+        ans=num1+num2;
+        std::cout<<ans<<'\n';
+    }
+    else if(op=='-'){
+        ans=num1-num2;
+        std::cout<<ans<<'\n';
+    }
+    else if(op=='*'){
+        ans=num1*num2;
+        std::cout<<ans<<'\n';
+    }
+    else if(op=='/'){
+        ans=num1/num2;
+        std::cout<<ans<<'\n';
+    }
+    else{
+        std::cout<<"please choose diffrent type operation "<<'\n';
+    }
+    
+
+
+    return 0;
+
+}

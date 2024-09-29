@@ -1,0 +1,24 @@
+#include <iostream>
+int main(){
+    int number =436;
+    int anum;
+    std::cout<<"i have a number between 1 and 1000 can you guess what??";
+    std::cin>>anum;
+    if(anum>1000){
+        std::cout<<"please read the description again";
+    }
+    else if(anum>number){
+        std::cout<<"too high try again";
+
+    }
+    else if(anum==number){
+        std::cout<<"amazing!!! thats true !";
+
+    }
+    else if(anum<number){
+        std::cout<<"too low try again ";
+    }
+   
+
+    return 0;
+}

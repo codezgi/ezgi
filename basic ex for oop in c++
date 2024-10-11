@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;//private not acces public able to acces and protected somewhwere between private and public 
+//everything is private now .
+class Employee{
+    public://now everything is public and accesable you must use it 
+    string name;
+    string company;
+    int age;
+
+    void IntroduceYourSelf(){
+        cout<<"name-"<<name<<endl;
+        cout<<"company-"<<company<<endl;
+        cout<<"age-"<<age<<endl;
+
+    }
+       
+
+
+};
+int main(){
+   
+   Employee employee1; //creating a variable
+   employee1.name="ezgi";
+   employee1.company="microsoft";
+   employee1.age=20;//we have set values 
+   employee1.IntroduceYourSelf();//wee call the method
+
+}

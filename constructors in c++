@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+class employee{
+    public:
+    string name;
+    string company;
+    int age;
+
+void IntroduceYourSelf(){
+    cout<<"name: "<<name<<" company: "<<company<<" age: "<<age<<endl;
+}
+employee(string Name, string Company, int Age){
+ name=Name;
+ company=Company;
+ age=Age;
+
+}
+};
+int main(){
+    employee emp1=employee("ezgi","amazon",20);// constructed object
+    emp1.IntroduceYourSelf();
+
+    return 0;
+}

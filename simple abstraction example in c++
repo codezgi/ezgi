@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+class AbstractEmployee
+{
+    virtual void AskForPromation() = 0;
+};
+class employee : AbstractEmployee
+{
+private:
+    string Name;
+    string Company;
+    int Age;
+
+public:
+    void setName(string name)
+    {
+        Name = name;
+    }
+    string getName()
+    {
+        return Name;
+    }
+    void setCompany(string company)
+    {
+        Company = company;
+    }
+    string getCompany()
+    {
+        return Company;
+    }
+    void setAge(int age)
+    {
+        if (age >= 18)
+        {
+            Age = age;
+        }
+    }
+    int getAge()
+    {
+        return Age;
+    }
+    void IntroduceYourSelf()
+    {
+        cout << "name : " << Name << " company : " << Company << " Age : " << Age;
+    }
+    employee(string name, string company, int age)
+    {
+        Name = name;
+        Company = company;
+        Age = age;
+    }
+    void AskForPromation(){
+        if(Age>40){
+            cout<<Name<<" got promoted ";
+        }
+        else{
+            cout<<Name<<" no promotion ";
+        }
+    }
+};
+
+
+   
+    int main()
+    {
+        employee emp1 = employee("ezgi", "amazon", 20);
+        employee emp2= employee("toprak","amazon",45);
+       emp1.AskForPromation();
+       emp2.AskForPromation();
+        return 0;
+    }

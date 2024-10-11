@@ -1,0 +1,112 @@
+#include <iostream>// inheritance is teh following super class parent class sub class child class ...
+using namespace std;
+class AbstractEmployee
+{
+    virtual void AskForPromation() = 0;
+};
+class employee : AbstractEmployee
+{
+protected:
+    string Name;
+    string Company;
+    int Age;
+
+public:
+    void setName(string name)
+    {
+        Name = name;
+    }
+    string getName()
+    {
+        return Name;
+    }
+    void setCompany(string company)
+    {
+        Company = company;
+    }
+    string getCompany()
+    {
+        return Company;
+    }
+    void setAge(int age)
+    {
+        if (age >= 18)
+        {
+            Age = age;
+        }
+    }
+    int getAge()
+    {
+        return Age;
+    }
+    void IntroduceYourSelf()
+    {
+        cout << "name : " << Name << " company : " << Company << " Age : " << Age;
+    }
+    employee(string name, string company, int age)
+    {
+        Name = name;
+        Company = company;
+        Age = age;
+    }
+    void AskForPromation(){
+        if(Age>40){
+            cout<<Name<<" got promoted ";
+        }
+        else{
+            cout<<Name<<" no promotion ";
+        }
+    }
+    void work(){
+        cout<<Name<<" checking email and task backlong "<<endl;
+    }
+};
+
+   class Developer: public employee{//developer is child class now and developer has all the properties 
+   public :
+   string FavoriteProgramingLanguage;
+   Developer(string name, string company, int age, string favoriteProgramingLanguage )
+    :employee(name,company,age)
+    {
+
+    FavoriteProgramingLanguage=favoriteProgramingLanguage;
+
+    }
+    void fixbug(){
+        cout<<getName()<<" fixed bug using "<<FavoriteProgramingLanguage;
+    }
+    void work(){
+        cout<<Name<<"writes code with "<<FavoriteProgramingLanguage<<endl;
+    }
+
+
+   };
+
+
+   class teacher: public employee {
+    public:
+       string  Subject;
+       void prepeareLesson(){
+        cout<<Name<<"   is prepearing  "<<Subject<<"   lesson  "<<endl;
+
+       }
+       teacher(string name, string company, int age , string subject):employee(name,company,age){
+        Subject=subject;
+       }
+       void work(){
+        cout<<Name<<" is teaching "<<Subject<<endl;
+       }
+
+   };
+
+
+   
+    int main()
+    {
+        
+        Developer d = Developer("sabrina ","youtube ", 25,"c++");
+        teacher t=teacher("jack","cool",35,"history");
+       d.work();
+       t.work();
+        return 0;
+    }

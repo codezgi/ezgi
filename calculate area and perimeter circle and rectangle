@@ -1,0 +1,85 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+class AbstractShape{
+ public:
+ virtual double area()=0;  //alan
+ virtual double  perimeter()=0; //çevre
+};
+class shapes: public AbstractShape{
+protected :
+double width;
+double height;
+double radius;
+
+public:
+void setR(double R){
+    radius=R;
+}
+double getR(){
+    return radius;
+}
+void setWidth(double Width){
+    width=Width;
+
+}
+double getWidth(){
+    return width;
+}
+void setHeight(double Height){
+    height=Height;
+
+}
+double getHeight(){
+    return height;
+}
+
+
+shapes(double Width=0,double Height=0,double R=0){
+    width=Width;
+    height=Height;
+    radius=R;
+}
+
+
+
+};
+class circle:public shapes{
+
+public :
+
+circle(double Radius):shapes(0,0,Radius){}
+
+ double area () override{
+      return M_PI*radius*radius;
+   }
+ double perimeter() override{
+    return 2*M_PI*radius;
+ }
+
+
+};
+class rectangle :public shapes{
+    public:
+ rectangle(double Width,double Height):shapes(Width,Height,0){}
+ double perimeter(){
+    return 2*(width+height);
+ }
+ double area(){
+    return width*height;
+ }
+
+
+};
+int main(){
+    
+    circle c1(3);
+    cout<<"area of a circle"<<c1.area()<<endl;
+    cout<<"perimeter of a circle"<<c1.perimeter()<<endl;
+    rectangle r1(8.3,15.2);
+    cout<<"area of a rectangle"<<r1.area()<<endl;
+    cout<<"perimeter of a rectangle"<<r1.perimeter()<<endl;
+
+return 0;
+    
+    }

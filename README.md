@@ -1,4 +1,3 @@
 # ezgi
-ezginin kodları 
-python
+ezginin kodları  c++
 

@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+class robot{
+private :
+int x_position;
+int y_position;
+public:
+string position;
+
+
+//robot(int Xposition , int Yposition){
+    //x_position=Xposition;
+    //y_position=Yposition;
+//}
+void setx_position(int Xposition){
+    x_position=Xposition;
+}
+int getx_position(){
+    return x_position;
+}
+void sety_position(int Yposition){
+    y_position=Yposition;
+}
+int gety_position(){
+    return y_position;
+}
+void başlangıç(){
+    cout<<"please enter the start point x:"<<endl;
+    cin>>x_position;
+    cout<<"please enter the start point for y :"<<endl;
+    cin>>y_position;
+}
+int  hareket(){    
+    cout<<"please enter the what you want if want to turn right please write 'turn' if you want move please write 'move '"<<endl;
+    cin>>position;
+    if(position=="turn"){
+       return  x_position++;
+    }
+    else if(position=="move"){
+        return y_position++;
+    }
+    else{
+        cout<<"please enter the true words "<<endl;
+    }
+
+}
+ void display(){
+    cout<<"your x position is  " <<x_position<<" and your y position is  "<<y_position<<endl;
+ }
+
+
+
+
+};
+int main(){
+    robot r1;
+    r1.başlangıç();
+    r1.hareket();
+    r1.display();
+
+    return 0;
+}

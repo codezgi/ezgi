@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+
+#include <iomanip>
+using std::setw;
+
+
+#include <cstdlib>
+using std::rand;
+using std::srand;
+
+int main(){
+   unsigned seed;//stores the seed entered by the user 
+   cout<<"enter seed";
+   cin>>seed;
+   srand(seed);//seed random number genarator 
+   //passing seed to srand to randomize the program
+  for(int counter =1;counter<=10;counter++){
+    cout<<setw(10)<<(1+rand()%6);
+    if(counter%5==0){//if 
+        cout<<endl;
+    }
+  }
+
+
+    return 0;// program outputs show that each unique seed value produces a different sequence of random numbers 
+}

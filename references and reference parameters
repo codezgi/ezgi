@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int squareByValue(int);//function illustrating pass by value
+void squareByReference(int&);//function illustrating pass-by-reference
+int main()
+{
+    int x=2;//value by using squareByValue
+    int z=4;//value by using squareByReference
+
+    cout<<"x= "<<x<<" before squareByValue\n";
+    cout<<" value returned by squareByValue : "<<squareByValue(x)<<endl;
+    cout<<"z= "<<z<<" before squareByReference\n";
+    squareByReference(z);
+    cout<<" z= "<<z<<" after squareByReference"<<endl;
+    return 0;
+}
+int squareByValue(int number)
+{
+  return number*=number;
+}
+void squareByReference(int &numberRef)//receives referance to argument in main 
+{
+    numberRef*=numberRef;
+}

@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+void useLocal(void);//function protype
+void useStaticLocal(void);//function prototype
+void useGlobal(void);//function prototype
+
+int x=1;//global variable 
+
+int main()
+{
+   int x=5;//local variable to main
+   cout<<"local x in main's outher scope is : "<<x<<endl;
+   {//start new scope
+       int x=7;//hides x in outer scope 
+      cout<<"local x in main's inner scope is :"<<x<<endl;
+   }// end the new scope
+   cout<<"local x in main's outter scope is"<<x<<endl;
+
+
+  useLocal();//use local has local x
+  useStaticLocal();// use static local has static local x 
+  useGlobal();//use global local uses global x
+  useLocal();//uselocal reinitialiez its local x
+  useStaticLocal();// static local x retains its prior value
+  useGlobal();// global x also retains its value
+  cout<<"\n local x in mains is"<<x<<endl;
+
+
+    return 0;
+}
+
+void useLocal(void)
+{
+ int x=25;
+ cout<<"\n local x is: "<<x<<" on entering useLocal"<<endl;
+ x++;
+ cout<<"local x is "<<x<<" on exiting useLOcal"<<endl;
+}
+void useStaticLocal(void)
+{
+    static int x=50;
+    cout<<"\n local static x is "<<x<<" on entering useStaticLocal"<<endl;
+    x++;
+    cout<<"local static x is "<<x<<"on exiting useStaticLocal"<<endl;
+
+}
+void useGlobal(void)
+{
+    cout<<"\n global x is "<<x<<" on entering useGlobal"<<endl;
+    x*=10;
+    cout<<"global x is "<<x<<"on existing useGlobal"<<endl; //it takes the global variable
+}

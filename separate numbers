@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+void separate(int number)
+{
+    while(number>0&&number<32767){
+        int basamak=number%10;
+        cout<<basamak<<" ";
+        number/=10;
+    }
+
+}
+int main()
+{
+    cout<<"enter a number :"<<endl;
+    int number ;
+    cin>>number;
+    separate(number);
+    return 0;
+}

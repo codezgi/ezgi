@@ -1,0 +1,18 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+double spherevolume(double r){
+    double PI=3.14159;
+  return (4.0/3.0)*PI*pow(r,3);
+}
+int main(){
+  double radius;
+  cout<<"enter the sphere radius : "<<endl;
+  cin>>radius;
+  cout<<"the volume of the sphere is : "<<spherevolume(radius);
+  
+
+
+
+    return 0;
+}

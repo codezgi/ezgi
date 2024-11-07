@@ -1,0 +1,146 @@
+import pygame
+import sys
+import random
+from fractions import Fraction
+
+# Pygame'i başlat
+pygame.init()
+
+# Ekran ayarları
+genislik, yukseklik = 750, 580
+pencere = pygame.display.set_mode((genislik, yukseklik))
+pygame.display.set_caption("Matematik Oyunu")
+
+# Fontlar
+font_ismi = pygame.font.SysFont("consolas", 30)
+
+# Renkler
+gokyuzu = (135, 206, 235)
+cimen = (34, 139, 34)
+agac_govde = (139, 69, 19)
+yaprak = (34, 139, 34)
+turuncu = (255, 165, 0)
+kahverengi = (139, 69, 19)
+beyaz = (255, 255, 255)
+
+# Arka plan çizimi
+def arka_plan_ciz():
+    pencere.fill(gokyuzu)
+    pygame.draw.rect(pencere, cimen, (0, yukseklik - 100, genislik, 100))
+    for x in range(100, genislik, 200):
+        pygame.draw.rect(pencere, agac_govde, (x + 20, yukseklik - 200, 20, 100))
+        pygame.draw.circle(pencere, yaprak, (x + 30, yukseklik - 250), 50)
+        pygame.draw.circle(pencere, yaprak, (x - 10, yukseklik - 220), 40)
+        pygame.draw.circle(pencere, yaprak, (x + 70, yukseklik - 220), 40)
+
+# Kullanıcı adı girişi
+def kullanici_adi_girisi(prompt, arkaplan_rengi):
+    yazi = font_ismi.render(prompt, True, beyaz)
+    giris = ""
+    bekleme = True
+    while bekleme:
+        arka_plan_ciz()
+        pygame.draw.rect(pencere, arkaplan_rengi, (40, 90, 670, 60))  # Giriş arka planı
+        pencere.blit(yazi, (50, 100))
+        yazi_giris = font_ismi.render(giris, True, beyaz)
+        pencere.blit(yazi_giris, (50, 150))
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    return giris
+                elif event.key == pygame.K_BACKSPACE:
+                    giris = giris[:-1]
+                else:
+                    giris += event.unicode
+
+# Kesirli ifadeleri ondalık sayıya çevirme fonksiyonu
+def giris_ondalik_cevir(giris):
+    try:
+        return float(giris)
+    except ValueError:
+        return float(Fraction(giris))
+
+# PDF'den alınan sorular ve cevaplar
+sorular = [
+    ("3/10 - 9/10 =", -0.6),
+    ("4/3 - 11/6 =", -1/6),
+    ("A = -1/2, B = -1/3, A + B =", -5/6),
+    ("3/4 - 13/18 =", -5/18),
+    ("K - L + M =", 7/12),
+    ("x = 4/5", 4/5),
+    ("1/3 - 3/4 =", -5/12),
+    ("1/6 + 3/8 =", 11/24),
+    ("1/9 - 1/13 =", -4/117),
+    ("23/7 - 52/7 =", -29/7),
+    ("1/4 - 2/3 =", -5/12),
+]
+
+# Ana oyun döngüsü
+def oyun():
+    # Kullanıcı adlarını al
+    kullanici1 = kullanici_adi_girisi("1. Kullanıcı Adını Giriniz:", kahverengi)
+    kullanici2 = kullanici_adi_girisi("2. Kullanıcı Adını Giriniz:", kahverengi)
+
+    # Hoş geldiniz mesajı
+    yazi = font_ismi.render(f"Merhaba {kullanici1} ve {kullanici2}!", True, beyaz)
+    yazi_koordinat = yazi.get_rect(center=(genislik // 2, 50))
+    pencere.blit(yazi, yazi_koordinat)
+    pygame.display.update()
+    pygame.time.delay(2000)
+
+    # Puanlar
+    puan1 = 0
+    puan2 = 0
+
+    for i in range(len(sorular)):
+        arka_plan_ciz()
+
+        # Soruyu seç ve arka plan çiz
+        soru, dogru_cevap = sorular[i]
+        pygame.draw.rect(pencere, turuncu, (40, 90, 670, 60))  # Soru arka planı
+        yazi_soru = font_ismi.render(f"Soru {i + 1}: {soru}", True, beyaz)
+        pencere.blit(yazi_soru, (50, 100))
+        pygame.display.update()
+        pygame.time.delay(5000)
+
+        # İlk kullanıcı cevabı
+        kullanici1_giris = kullanici_adi_girisi(f"{kullanici1}'in cevabı:", kahverengi)
+        kullanici1_cevap = giris_ondalik_cevir(kullanici1_giris)
+        if kullanici1_cevap == dogru_cevap:
+            puan1 += 1
+
+        # İkinci kullanıcı cevabı
+        kullanici2_giris = kullanici_adi_girisi(f"{kullanici2}'in cevabı:", kahverengi)
+        kullanici2_cevap = giris_ondalik_cevir(kullanici2_giris)
+        if kullanici2_cevap == dogru_cevap:
+            puan2 += 1
+
+    # Sonuçları göster
+    arka_plan_ciz()
+    sonuc_yazi1 = font_ismi.render(f"{kullanici1} doğru cevap sayısı: {puan1}", True, beyaz)
+    sonuc_yazi2 = font_ismi.render(f"{kullanici2} doğru cevap sayısı: {puan2}", True, beyaz)
+    pencere.blit(sonuc_yazi1, (50, 150))
+    pencere.blit(sonuc_yazi2, (50, 200))
+
+    if puan1 > puan2:
+        kazanan_yazi = font_ismi.render(f"Kazanan: {kullanici1}", True, (255, 215, 0))
+    elif puan2 > puan1:
+        kazanan_yazi = font_ismi.render(f"Kazanan: {kullanici2}", True, (255, 215, 0))
+    else:
+        kazanan_yazi = font_ismi.render("Berabere!", True, (255, 215, 0))
+    
+    pencere.blit(kazanan_yazi, (50, 250))
+    pygame.display.update()
+    pygame.time.delay(5000)
+
+# Çalıştır
+oyun()
+
+# Pygame'i kapat
+pygame.quit()
+sys.exit()

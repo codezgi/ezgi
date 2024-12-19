@@ -1,0 +1,106 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+// İkili Arama Ağacı Düğümü
+struct TreeNode {
+    char data;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(char value) : data(value), left(nullptr), right(nullptr) {}
+};
+
+// Bağlı Liste Düğümü
+struct ListNode {
+    TreeNode* tree;
+    ListNode* next;
+
+    ListNode(TreeNode* treeRoot) : tree(treeRoot), next(nullptr) {}
+};
+
+// Ağaca düğüm ekleme fonksiyonu
+TreeNode* insertIntoTree(TreeNode* root, char value) {
+    if (!root) {
+        return new TreeNode(value);
+    }
+    if (value < root->data) {
+        root->left = insertIntoTree(root->left, value);
+    } else {
+        root->right = insertIntoTree(root->right, value);
+    }
+    return root;
+}
+
+// Ağacı inorder sırada yazdırma fonksiyonu (debug amaçlı)
+void printTreeInOrder(TreeNode* root) {
+    if (!root) return;
+    printTreeInOrder(root->left);
+    cout << root->data << " ";
+    printTreeInOrder(root->right);
+}
+
+// Bağlı listeyi yazdırma (debug amaçlı)
+void printList(ListNode* head) {
+    ListNode* current = head;
+    int count = 0;
+    while (current && count < 10) { // İlk 10 düğümü yazdır
+        cout << "[" << current->tree->data << "] ";
+        current = current->next;
+        count++;
+    }
+    cout << endl;
+}
+
+// Dosyadan veri okuma ve ağaç oluşturma
+ListNode* createTreesFromFile(const string& fileName) {
+    ifstream file(fileName);
+    if (!file.is_open()) {
+        cerr << "Dosya açılamadı!" << endl;
+        return nullptr;
+    }
+
+    string line;
+    ListNode* head = nullptr;
+    ListNode* tail = nullptr;
+
+    while (getline(file, line)) {
+        TreeNode* treeRoot = nullptr;
+        for (char c : line) {
+            if (!isspace(c)) {
+                treeRoot = insertIntoTree(treeRoot, c);
+            }
+        }
+
+        ListNode* newNode = new ListNode(treeRoot);
+        if (!head) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    file.close();
+    return head;
+}
+
+int main() {
+    string fileName = "agaclar.txt";
+    ListNode* listHead = createTreesFromFile(fileName);
+
+    if (!listHead) {
+        cerr << "Ağaçlar oluşturulamadı!" << endl;
+        return 1;
+    }
+
+    // Bağlı listeyi ve ağaçları yazdır (debug amaçlı)
+    printList(listHead);
+    cout << "\nİlk ağacın inorder yazdırılması:\n";
+    printTreeInOrder(listHead->tree);
+
+    return 0;
+}
